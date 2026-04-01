@@ -1,5 +1,5 @@
 // Node script to test backend endpoints
-const fetch = require('node-fetch');
+// Node 18+ has global fetch; no extra dependency required.
 
 (async () => {
   try {

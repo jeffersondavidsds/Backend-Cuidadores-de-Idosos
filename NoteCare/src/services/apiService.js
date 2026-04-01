@@ -1,4 +1,4 @@
-export const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://backend-cuidadores-de-idosos.onrender.com';
+export const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://backend-cuidadores-de-idosos.onrender.com';
 
 export const apiService = {
   async request(endpoint, method = 'GET', data = null, token = null) {

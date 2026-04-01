@@ -99,7 +99,21 @@ const Login = () => {
     
     if (result.success) {
       setError('');
-      setSuccessMessage('✔️ Login bem sucedido! Redirecionando...');
+
+      if (result.requiresMFA) {
+        setSuccessMessage('✔️ Código de verificação enviado. Cheque seu e-mail.');
+        setShowMFA(true);
+        return;
+      }
+
+      if (result.token) {
+        setSuccessMessage('✔️ Login bem-sucedido! Redirecionando...');
+        navigate('/');
+        return;
+      }
+
+      // Se o login for bem-sucedido mas não houver MFA/outro campo definido
+      setSuccessMessage('✔️ Login bem-sucedido!');
       setShowMFA(true);
     } else {
       setError(result.error || 'Erro ao fazer login');
