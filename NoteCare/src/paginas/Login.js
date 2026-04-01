@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contextos/AuthContext';
+import { apiService } from '../services/apiService';
 import ModalMFA from '../componentes/autenticacao/ModalMFA';
 import './Login.css';
 
@@ -10,11 +11,14 @@ const Login = () => {
   console.log('Login useAuth:', auth);
   const login = auth?.login ? auth.login : async () => ({ success: false, error: 'Unable to access login function' });
   
+  const [mode, setMode] = useState('login'); // 'login' ou 'register'
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [showMFA, setShowMFA] = useState(false);
   const [passwordStrength, setPasswordStrength] = useState({ level: 0, text: '' });
 
@@ -40,6 +44,41 @@ const Login = () => {
     };
   };
 
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    setError('');
+    setSuccessMessage('');
+
+    if (!name || !email || !password || !confirmPassword) {
+      setError('⚠️ Preencha todos os campos de cadastro.');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setError('⚠️ As senhas não coincidem.');
+      return;
+    }
+
+    if (password.length < 6) {
+      setError('⚠️ A senha deve ter pelo menos 6 caracteres.');
+      return;
+    }
+
+    try {
+      const response = await apiService.register(name, email, password);
+      if (response.success) {
+        setSuccessMessage('✅ Cadastro realizado com sucesso! Faça login agora.');
+        setMode('login');
+        setConfirmPassword('');
+        setPassword('');
+        return;
+      }
+      setError(response.error || 'Erro ao cadastrar.');
+    } catch (err) {
+      setError(err.message || 'Erro ao cadastrar.');
+    }
+  };
+
   const handlePasswordChange = (e) => {
     const pass = e.target.value;
     setPassword(pass);
@@ -49,6 +88,7 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccessMessage('');
 
     if (!email || !password) {
       setError('⚠️ Preencha e-mail e senha.');
@@ -58,6 +98,8 @@ const Login = () => {
     const result = await login(email, password);
     
     if (result.success) {
+      setError('');
+      setSuccessMessage('✔️ Login bem sucedido! Redirecionando...');
       setShowMFA(true);
     } else {
       setError(result.error || 'Erro ao fazer login');
@@ -89,34 +131,70 @@ const Login = () => {
           </div>
         )}
 
-        <form onSubmit={handleLogin}>
+        {successMessage && (
+          <div className="success-msg">
+            {successMessage}
+          </div>
+        )}
+
+        <form onSubmit={mode === 'login' ? handleLogin : handleRegister}>
+          {mode === 'register' && (
+            <div className="form-group">
+              <label>Nome</label>
+              <div className="input-wrap">
+                <input
+                  type="text"
+                  placeholder="Seu nome completo"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  autoComplete="name"
+                />
+                <span className="input-icon">👤</span>
+              </div>
+            </div>
+          )}
+
           <div className="form-group">
-            <label>Nome</label>
+            <label>Senha</label>
             <div className="input-wrap">
               <input
-                type="text"
-                placeholder="Seu nome completo"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                autoComplete="name"
+                type={showPassword ? 'text' : 'password'}
+                placeholder="••••••••"
+                value={password}
+                onChange={handlePasswordChange}
+                autoComplete="current-password"
               />
-              <span className="input-icon">👤</span>
+              <span 
+                className="input-icon" 
+                onClick={() => setShowPassword(!showPassword)}
+                style={{ cursor: 'pointer' }}
+              >
+                {showPassword ? '👁️' : '👁️'}
+              </span>
             </div>
           </div>
 
-          <div className="form-group">
-            <label>E-mail</label>
-            <div className="input-wrap">
-              <input
-                type="email"
-                placeholder="seu@email.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                autoComplete="email"
-              />
-              <span className="input-icon">✉️</span>
+          {mode === 'register' && (
+            <div className="form-group">
+              <label>Confirmar senha</label>
+              <div className="input-wrap">
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  placeholder="••••••••"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  autoComplete="new-password"
+                />
+                <span 
+                  className="input-icon" 
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  {showPassword ? '👁️' : '👁️'}
+                </span>
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="form-group">
             <label>Senha</label>
@@ -162,9 +240,21 @@ const Login = () => {
           </div>
 
           <button type="submit" className="btn-primary">
-            Entrar com segurança
+            {mode === 'login' ? 'Entrar com segurança' : 'Cadastrar'}
           </button>
         </form>
+
+        <div className="login-footer">
+          {mode === 'login' ? (
+            <button className="btn-secondary" onClick={() => { setMode('register'); setError(''); setSuccessMessage(''); }}>
+              Cadastre-se
+            </button>
+          ) : (
+            <button className="btn-secondary" onClick={() => { setMode('login'); setError(''); setSuccessMessage(''); }}>
+              Já tenho conta
+            </button>
+          )}
+        </div>
 
         <div className="login-footer">
           <a href="#forgot" onClick={handleForgotPassword}>
