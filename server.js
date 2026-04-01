@@ -15,6 +15,11 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const DEV_BYPASS_MFA = process.env.DEV_BYPASS_MFA === 'true';
 
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  credentials: true
+}));
+
 // Middlewares
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:3000',
