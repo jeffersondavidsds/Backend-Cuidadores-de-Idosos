@@ -170,6 +170,36 @@ export const DataProvider = ({ children }) => {
     }
   };
 
+  const getAllActivities = () => {
+    return patients.reduce((activities, patient) => {
+      const patientActivities = patient.activities || [];
+      return activities.concat(patientActivities.map((act) => ({
+        ...act,
+        patientId: patient.id,
+        patientName: patient.name
+      })));
+    }, []);
+  };
+
+  const getStats = () => {
+    const allActivities = getAllActivities();
+    const today = new Date().toISOString().slice(0, 10);
+
+    const totalPatients = patients.length;
+    const todayActivitiesCount = allActivities.filter((activity) =>
+      activity.date?.slice(0, 10) === today
+    ).length;
+    const pendingActivitiesCount = allActivities.filter((activity) =>
+      !activity.completed
+    ).length;
+
+    return {
+      totalPatients,
+      todayActivitiesCount,
+      pendingActivitiesCount
+    };
+  };
+
   const value = {
     patients,
     loading,
@@ -180,6 +210,8 @@ export const DataProvider = ({ children }) => {
     addActivity,
     updateActivity,
     deleteActivity,
+    getAllActivities,
+    getStats,
     refreshPatients: loadPatients
   };
 

@@ -49,10 +49,10 @@ const Dashboard = () => {
     });
   };
 
-  const stats = getStats();
-  const allActivities = getAllActivities();
+  const stats = typeof getStats === 'function' ? getStats() : { totalPatients: 0, todayActivitiesCount: 0, pendingActivitiesCount: 0 };
+  const allActivities = typeof getAllActivities === 'function' ? getAllActivities() : [];
   const recentActivities = allActivities.slice(0, 5);
-  const recentPatients = patients.slice(0, 2);
+  const recentPatients = (patients || []).slice(0, 2);
 
   const getStatusDot = (status) => {
     const classes = {
