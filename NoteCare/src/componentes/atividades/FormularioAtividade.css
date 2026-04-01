@@ -1,0 +1,25 @@
+.activity-form {
+  max-height: 80vh;
+}
+
+.activity-form .form-group {
+  margin-bottom: 18px;
+}
+
+.activity-form textarea {
+  min-height: 100px;
+}
+
+.activity-form input[type="datetime-local"] {
+  font-family: 'Nunito', sans-serif;
+  cursor: pointer;
+}
+
+.activity-form input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  filter: opacity(0.6);
+}
+
+.activity-form input[type="datetime-local"]:hover::-webkit-calendar-picker-indicator {
+  filter: opacity(1);
+}

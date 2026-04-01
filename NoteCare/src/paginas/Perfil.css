@@ -1,0 +1,360 @@
+.perfil-page {
+  animation: fadeIn 0.3s ease;
+}
+
+.profile-hero {
+  background: linear-gradient(135deg, var(--sage-light), var(--peach-light));
+  border-radius: 22px;
+  padding: 28px 24px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 20px;
+}
+
+.profile-avatar-big {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  border: 3px solid rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  box-shadow: 0 4px 16px rgba(90, 70, 55, 0.15);
+  flex-shrink: 0;
+}
+
+.profile-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: var(--text-dark);
+  font-weight: 600;
+}
+
+.profile-role {
+  font-size: 13px;
+  color: var(--text-mid);
+  margin-top: 3px;
+}
+
+.profile-reg {
+  font-size: 12px;
+  color: var(--text-soft);
+  margin-top: 2px;
+}
+
+.profile-name-input,
+.profile-role-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+  outline: none;
+}
+
+.profile-name-input:focus,
+.profile-role-input:focus {
+  border-color: var(--sage);
+  box-shadow: 0 0 0 3px rgba(139, 175, 139, 0.15);
+}
+
+.edit-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.btn-save-profile {
+  flex: 1;
+  padding: 12px;
+  background: linear-gradient(135deg, var(--sage-dark), var(--sage));
+  border: none;
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-save-profile:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(94, 122, 94, 0.35);
+}
+
+.btn-cancel-profile {
+  padding: 12px 20px;
+  background: var(--cream);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  color: var(--text-mid);
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-cancel-profile:hover {
+  background: var(--border);
+}
+
+.settings-list {
+  background: var(--warm-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.settings-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 16px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.settings-item:last-child {
+  border-bottom: none;
+}
+
+.settings-item:hover {
+  background: var(--cream);
+}
+
+.settings-icon {
+  font-size: 20px;
+  width: 28px;
+  text-align: center;
+}
+
+.settings-label {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+.settings-arrow {
+  color: var(--text-soft);
+  font-size: 16px;
+}
+
+.badge-new {
+  background: var(--sage-light);
+  color: var(--sage-dark);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 10px;
+}
+
+.about-box {
+  background: var(--warm-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.about-title {
+  font-size: 12px;
+  color: var(--text-soft);
+  margin-bottom: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.about-content {
+  font-size: 13.5px;
+  color: var(--text-mid);
+  line-height: 1.7;
+}
+
+.btn-logout {
+  width: 100%;
+  padding: 14px;
+  background: #FFF0F0;
+  border: 1.5px solid #F5C5C5;
+  border-radius: var(--radius-sm);
+  color: #C05050;
+  font-family: 'Nunito', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: all 0.2s;
+}
+
+.btn-logout:hover {
+  background: #FFE0E0;
+  transform: translateY(-1px);
+}
+
+.report-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(58, 53, 48, 0.45);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  z-index: 500;
+}
+
+.report-modal {
+  width: 100%;
+  max-width: 560px;
+  background: var(--warm-white);
+  border-radius: 20px;
+  padding: 18px;
+  box-shadow: 0 18px 50px rgba(58, 53, 48, 0.18);
+  border: 1px solid var(--border);
+}
+
+.report-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.report-modal-header h3 {
+  margin: 0;
+  font-family: 'Playfair Display', serif;
+  font-size: 19px;
+  color: var(--text-dark);
+}
+
+.report-close-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  background: var(--cream);
+  color: var(--text-mid);
+  cursor: pointer;
+}
+
+.report-modal-text {
+  font-size: 13px;
+  color: var(--text-mid);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.report-patient-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.report-patient-card {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1.5px solid var(--border);
+  background: linear-gradient(180deg, #fffdf9 0%, #f9f5ef 100%);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.report-patient-card:hover {
+  transform: translateY(-1px);
+  border-color: #d9c6b4;
+}
+
+.report-patient-card.selected {
+  border-color: var(--sage);
+  box-shadow: 0 0 0 3px rgba(139, 175, 139, 0.15);
+  background: linear-gradient(135deg, rgba(139, 175, 139, 0.12), rgba(250, 247, 242, 0.95));
+}
+
+.report-patient-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.8);
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.report-patient-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.report-patient-info strong {
+  font-size: 14px;
+  color: var(--text-dark);
+}
+
+.report-patient-info span {
+  font-size: 12px;
+  color: var(--text-soft);
+}
+
+.report-preview-box {
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 14px;
+  background: rgba(139, 175, 139, 0.08);
+  border: 1px solid rgba(139, 175, 139, 0.2);
+}
+
+.report-preview-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text-dark);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.report-preview-box ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.report-preview-box li {
+  font-size: 12.5px;
+  color: var(--text-mid);
+  margin-bottom: 4px;
+}
+
+.report-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+@media (max-width: 520px) {
+  .report-modal {
+    padding: 16px;
+  }
+
+  .report-actions {
+    flex-direction: column;
+  }
+}

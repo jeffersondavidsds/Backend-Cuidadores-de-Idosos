@@ -1,0 +1,24 @@
+.atividades-page {
+  animation: fadeIn 0.3s ease;
+}
+
+.all-activities-list {
+  background: var(--warm-white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.all-activities-list .log-item {
+  border-bottom: 1px solid var(--border);
+  padding: 11px 14px;
+  transition: background 0.15s;
+}
+
+.all-activities-list .log-item:last-child {
+  border-bottom: none;
+}
+
+.all-activities-list .log-item:hover {
+  background: var(--cream);
+}
