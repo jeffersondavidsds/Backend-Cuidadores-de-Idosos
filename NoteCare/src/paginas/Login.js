@@ -155,6 +155,20 @@ const Login = () => {
           )}
 
           <div className="form-group">
+            <label>E-mail</label>
+            <div className="input-wrap">
+              <input
+                type="email"
+                placeholder="seu@email.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoComplete="email"
+              />
+              <span className="input-icon">✉️</span>
+            </div>
+          </div>
+
+          <div className="form-group">
             <label>Senha</label>
             <div className="input-wrap">
               <input
@@ -172,6 +186,21 @@ const Login = () => {
                 {showPassword ? '👁️' : '👁️'}
               </span>
             </div>
+
+            {password && (
+              <>
+                <div className="strength-bar">
+                  <div 
+                    className="strength-fill"
+                    style={{
+                      width: `${passwordStrength.width}%`,
+                      background: passwordStrength.color
+                    }}
+                  />
+                </div>
+                <div className="strength-text">{passwordStrength.text}</div>
+              </>
+            )}
           </div>
 
           {mode === 'register' && (
@@ -195,41 +224,6 @@ const Login = () => {
               </div>
             </div>
           )}
-
-          <div className="form-group">
-            <label>Senha</label>
-            <div className="input-wrap">
-              <input
-                type={showPassword ? 'text' : 'password'}
-                placeholder="••••••••"
-                value={password}
-                onChange={handlePasswordChange}
-                autoComplete="current-password"
-              />
-              <span 
-                className="input-icon" 
-                onClick={() => setShowPassword(!showPassword)}
-                style={{ cursor: 'pointer' }}
-              >
-                {showPassword ? '👁️' : '👁️'}
-              </span>
-            </div>
-            
-            {password && (
-              <>
-                <div className="strength-bar">
-                  <div 
-                    className="strength-fill"
-                    style={{
-                      width: `${passwordStrength.width}%`,
-                      background: passwordStrength.color
-                    }}
-                  />
-                </div>
-                <div className="strength-text">{passwordStrength.text}</div>
-              </>
-            )}
-          </div>
 
           <div className="login-security">
             <span>🔒</span>
