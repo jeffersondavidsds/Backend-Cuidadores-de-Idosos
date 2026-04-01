@@ -15,16 +15,28 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const DEV_BYPASS_MFA = process.env.DEV_BYPASS_MFA === 'true';
 
-const allowedOrigin = (process.env.FRONTEND_URL || 'http://localhost:3000').replace(/\/$/, '');
+const allowedOrigins = [
+  (process.env.FRONTEND_URL || 'http://localhost:3000').replace(/\/$/, ''),
+  'http://localhost:3000',
+  'https://homecarenote.vercel.app'
+];
 
 app.use(cors({
   origin: (origin, callback) => {
-    if (!origin || origin.replace(/\/$/, '') === allowedOrigin) {
+    const normalizedOrigin = origin ? origin.replace(/\/$/, '') : origin;
+    if (!origin || allowedOrigins.includes(normalizedOrigin)) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error('Not allowed by CORS: ' + origin));
     }
   },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+app.options('*', cors({
+  origin: allowedOrigins,
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
